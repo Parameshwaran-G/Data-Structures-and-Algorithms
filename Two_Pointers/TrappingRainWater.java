@@ -3,18 +3,21 @@ public class TrappingRainWater {
         int height[] = {0,1,0,2,1,0,1,3,2,1,2,1};
         int water = 0;
         int n=height.length;
-        for(int i=0;i<n;i++){
-            int leftMax = 0;
-            int rightMax = 0;
-            for(int j=0;j<=i;j++){
-                leftMax = Math.max(leftMax,height[j]);  
-                
+        int left = 0;
+        int right = n-1;
+        int leftMax = height[left];
+        int rightMax = height[right];
+        while(left<=right){
+            if(leftMax<=rightMax){
+                leftMax = Math.max(leftMax,height[left]);
+                water += leftMax-height[left];
+                left++;
             }
-            for(int k=i;k<n;k++){
-                rightMax = Math.max(rightMax,height[k]);
-                
+            else{
+                rightMax = Math.max(rightMax,height[right]);
+                water += rightMax-height[right];
+                right--;
             }
-            water += (Math.min(leftMax,rightMax) - height[i]); 
         }
         System.out.println(water);
     }
